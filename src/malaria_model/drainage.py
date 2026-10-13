@@ -16,12 +16,14 @@ def clogging_index(D_d: float, M_i: float) -> float:
     return (1.0 - M_i) / (D_d + p.EPSILON)
 
 
-def carrying_capacity(R: float, omega: float) -> float:
+def carrying_capacity(R: float, omega: float, k0: float | None = None) -> float:
     """Aquatic carrying capacity K_v [mosquito larvae] for rainfall R [mm/day].
 
-    K_v = K_0 * (1 + eta * Omega) * R.
+    K_v = K_0 * (1 + eta * Omega) * R. k0 overrides params.K_0
+    [mosquitoes/(mm/day)] (used by the extended variant and calibration).
     """
-    K_v = p.K_0 * (1.0 + p.ETA * omega) * R
+    K_0 = p.K_0 if k0 is None else k0
+    K_v = K_0 * (1.0 + p.ETA * omega) * R
     # DEVIATION: K_v floored at K_V_MIN to avoid division by zero on dry days, see DEVIATIONS.md #1
     return max(K_v, p.K_V_MIN)
 

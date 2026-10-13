@@ -71,6 +71,24 @@ def synthetic_rainfall(n_days: int = p.N_DAYS, seed: int = p.RANDOM_SEED) -> np.
     return mean_rain * noise
 
 
+def effective_rainfall(rain: np.ndarray, tau: float) -> np.ndarray:
+    """Rainfall with memory, R_eff [mm/day], for a repeating daily series R [mm/day].
+
+    Exponentially weighted average with retention time tau [days]:
+        w = 1 - exp(-1/tau),  R_eff[d] = (1 - w) * R_eff[d-1] + w * R[d].
+    Computed over two back-to-back copies of the series and the second copy is
+    returned, so R_eff is periodic like the repeating climate. Being a weighted
+    average of non-negative rainfall, R_eff >= 0 and has the same long-run mean as R.
+    """
+    w = 1.0 - np.exp(-1.0 / tau)
+    doubled = np.tile(rain, 2)
+    r_eff = np.empty_like(doubled)
+    r_eff[0] = doubled[0]
+    for d in range(1, len(doubled)):
+        r_eff[d] = (1.0 - w) * r_eff[d - 1] + w * doubled[d]
+    return r_eff[len(rain):]
+
+
 @dataclass(frozen=True)
 class Climate:
     """Daily climate series with lookup at any (fractional) day.

@@ -140,3 +140,52 @@ LOG_SCALE_RATIO: float = 10.0  # heatmaps use a log colour scale if max/min >= t
 # ---------------------------------------------------------------------------
 SENS_GAMMA_H: list[float] = [0.0035, 0.005, 0.01]  # recovery rates tested [1/day]
 SENS_BETA_HV: list[float] = [0.022, 0.05, 0.1]  # vector->human probabilities tested [-]
+
+# ===========================================================================
+# EXTENDED VARIANT ONLY (approved 2026-10-14; not used by the "spec" variant)
+# ===========================================================================
+MODEL_VARIANT: str = "extended"  # headline variant in main.py: "spec" or "extended"
+
+# Rainfall memory (DEVIATION #6, #7)
+TAU_RAIN: float = 10.0  # breeding-water retention time [days]; PLACEHOLDER - needs literature value
+#                         (order of magnitude for puddles/drains; no specific source known)
+R_EFF_MIN: float = 0.01  # numerical floor on R_eff [mm/day]; PLACEHOLDER - needs literature value
+#                          (deliberately tiny: a guard, not a "permanent water" parameter)
+OMEGA_LENGTHENS_TAU: bool = False  # switch: clogged drains retain water longer (OFF by default)
+TAU_OMEGA_SLOPE: float = 0.1  # tau(Ω) = TAU_RAIN * (1 + slope * Ω) [1/unit Ω];
+#                               PLACEHOLDER - needs literature value
+
+# Importation of infections (DEVIATION #8)
+IMPORT_PER_1000_PER_YEAR: float = 1.0  # imported infections [per 1,000 people per year];
+#                                        PLACEHOLDER - needs literature value
+
+# Carrying capacity scale for the extended variant
+K_0_CALIBRATED: float | None = None  # calibrated K_0 [mosquitoes/(mm/day)]; None = not yet
+#                                      calibrated (extended then uses K_0 above)
+
+# Spin-up until convergence (DEVIATION #9)
+SPINUP_TOL: float = 0.01  # stop when local attack rate changes < 1% year over year [-]
+SPINUP_MAX_YEARS: int = 20  # cap on spin-up years
+
+# K_0 calibration search (medium ward reference; target supplied by the user)
+CALIBRATION_WARD: str = "Medium infra / low maintenance"
+CAL_K0_MIN: float = 10.0  # lowest K_0 scanned [mosquitoes/(mm/day)]
+CAL_K0_MAX: float = 1.0e6  # highest K_0 scanned [mosquitoes/(mm/day)]
+CAL_SCAN_POINTS: int = 9  # log-spaced scan points
+CAL_RTOL: float = 1e-3  # relative tolerance on calibrated K_0 [-]
+CAL_MIN_ELASTICITY: float = 0.1  # d ln(API)/d ln(K_0) below this => "poorly identified" [-]
+CAL_MAX_IMPORT_FRACTION: float = 0.5  # imported share above this => "poorly identified" [-]
+
+# Ω analysis
+OMEGA_SEARCH_MIN: float = 0.0  # lower bound for critical-Ω search [-]
+OMEGA_SEARCH_MAX: float = 20.0  # upper bound for critical-Ω search [-]
+OMEGA_CURVE_POINTS: int = 25  # Ω values on the R0-vs-Ω curve
+OMEGA_CURVE_MIN: float = 0.05  # smallest Ω on the R0-vs-Ω curve (log-spaced) [-]
+VECTOR_SPINUP_YEARS: int = 2  # years to settle vector dynamics before reading R0(t)
+OMEGA_CONTOUR_LEVELS: list[float] = [0.25, 0.5, 1.0, 2.0, 4.0, 8.0]  # Ω contours on heatmaps
+
+# Importation sensitivity (separate from main results)
+SENS_IMPORT: list[float] = [0.0, 0.1, 1.0, 10.0]  # imported infections per 1,000 per year
+
+# Parallel runs
+N_WORKERS: int = 8  # processes for grid sweeps

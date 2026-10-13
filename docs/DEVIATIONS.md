@@ -51,3 +51,45 @@ Code markers: `# DEVIATION: ..., see DEVIATIONS.md #N`.
   so the result reflected the initial conditions, not the drainage. Spin-up removes most of that
   dependence. `simulate()` (single year from day 0) is still available and used in tests.
 - **Approved by:** user
+
+## #6 - Extended variant: carrying capacity driven by rainfall with memory
+- **Date:** 2026-10-14
+- **File / function:** src/malaria_model/ode.py `build_forcing()`; climate.py `effective_rainfall()`
+- **Spec formula:** K_v = K_0 * (1 + eta * Ω) * R(t)
+- **Code does (extended only):** K_v = K_0 * (1 + eta * Ω) * max(R_eff(t), R_EFF_MIN), where
+  R_eff[d] = (1 - w) R_eff[d-1] + w R[d], w = 1 - exp(-1/τ), τ = TAU_RAIN (10 days, placeholder),
+  computed periodically over the repeating climate. R_EFF_MIN = 0.01 mm/day is a numerical floor.
+  Larval flushing μ_A still uses same-day R(t). The spec variant is unchanged.
+- **Reason:** breeding water persists for days after rain; same-day R makes habitat vanish instantly.
+- **Approved by:** user
+
+## #7 - Extended variant: optional Ω-dependent retention time (OFF by default)
+- **Date:** 2026-10-14
+- **File / function:** src/malaria_model/config.py `ModelConfig.tau()`
+- **Spec:** no retention time exists in SPEC.
+- **Code does (extended, only if OMEGA_LENGTHENS_TAU = True):** τ(Ω) = TAU_RAIN * (1 + TAU_OMEGA_SLOPE * Ω).
+- **Reason:** clogged drains plausibly retain water longer. Default OFF, so current results do not use it.
+- **Approved by:** user
+
+## #8 - Extended variant: imported infections
+- **Date:** 2026-10-14
+- **File / function:** src/malaria_model/ode.py `human_rhs()`
+- **Spec formulas:** dS_h/dt and dE_h/dt as in SPEC §5 (no importation term)
+- **Code does (extended only):** subtracts ι·S_h from dS_h/dt and adds it to dE_h/dt, with
+  ι = IMPORT_PER_1000_PER_YEAR / 1000 / 365 per day (1 per 1,000/yr, placeholder). Pure transfer:
+  N_h balance unchanged (tested). In spec, import_rate = 0, so the term vanishes.
+- **Reason:** urban wards receive infections from travel; without them, infection must survive the
+  dry season with no outside source.
+- **Approved by:** user
+
+## #9 - Spin-up until convergence
+- **Date:** 2026-10-14
+- **File / function:** src/malaria_model/ode.py `simulate_converged()`, used by both variants
+  in main.py (#5's fixed 3-year spin-up remains available and is kept, not replaced)
+- **Spec says:** 365-day trajectories (SPEC §6 note 6).
+- **Code does:** simulates year by year (climate repeating) until LOCALLY ACQUIRED infections change by
+  < SPINUP_TOL = 1% year over year, cap SPINUP_MAX_YEARS = 20; reports the final year, the years run,
+  whether it converged, and the local growth factor.
+- **Reason:** a fixed 3 years did not reach a steady pattern; local infections are used because
+  imported infections would mask whether transmission is self-sustaining.
+- **Approved by:** user
