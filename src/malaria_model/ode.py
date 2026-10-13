@@ -106,3 +106,19 @@ def simulate(omega: float, climate: Climate, y0: np.ndarray | None = None) -> pd
     df["N_v"] = df["S_v"] + df["E_v"] + df["I_v"]
     df["N_h"] = df["S_h"] + df["E_h"] + df["I_h"] + df["R_h"]
     return df
+
+
+def simulate_with_spinup(omega: float, climate: Climate,
+                         n_years: int = p.N_YEARS_TOTAL) -> pd.DataFrame:
+    """Simulate n_years with the one-year climate repeated; return only the last year.
+
+    omega: clogging index [-]; climate: one year of daily T [°C] and R [mm/day].
+    The returned DataFrame is re-indexed to days 0..len(climate)-1 of the reported year,
+    so it has the same shape as simulate(omega, climate).
+    """
+    # DEVIATION: burn-in years run and discarded before the reported 365 days, see DEVIATIONS.md #5
+    days_per_year = len(climate.temperature)
+    full = simulate(omega, climate.repeat(n_years), initial_state(omega, climate))
+    last_year = full.iloc[-days_per_year:].copy()
+    last_year.index = pd.Index(climate.days, name="day")
+    return last_year

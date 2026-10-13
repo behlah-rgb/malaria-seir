@@ -88,6 +88,10 @@ class Climate:
         """Day index array [days]."""
         return np.arange(len(self.temperature), dtype=float)
 
+    def repeat(self, n_years: int) -> "Climate":
+        """Return a Climate with the daily series repeated n_years times [days = n_years * len]."""
+        return Climate(np.tile(self.temperature, n_years), np.tile(self.rainfall, n_years))
+
     def T_at(self, t: float) -> float:
         """Temperature [°C] at time t [days], linearly interpolated between days."""
         return float(np.interp(t, self.days, self.temperature))

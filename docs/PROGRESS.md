@@ -1,12 +1,32 @@
 # Progress
 
 ## Current status
-Full model runs end to end with `python main.py` on SYNTHETIC climate (2026-10-14).
-20/20 tests pass. Most parameter values are placeholders (see src/malaria_model/params.py).
-**Key finding:** with current parameters no ward has an outbreak; peak I_h = 10 (the seed,
-day 0) everywhere, so the heatmap is flat. Not tuned, awaiting decision (see Open questions).
+Model runs end to end with `python main.py` (about 55 s) on SYNTHETIC climate (2026-10-14).
+26/26 tests pass. Results are year 3 of a 3-year run (spin-up, DEVIATIONS #5).
+Drainage now separates the wards: the poor ward (Ω 8.9) has a monsoon outbreak (peak I_h 12.4,
+1.21 new infections per 1,000); the other two only sustain low-level transmission.
+Most parameters are still placeholders.
 
 ## Change log
+### 2026-10-14 - Diagnosis of the flat first run + spin-up, new metric, R0, sensitivity
+- Diagnosis (read-only): the main cause was weak transmission (annual-mean R0 < 1 in every ward;
+  weakest link K_hv = 0.068 humans infected per infectious mosquito). Dry-season start played a
+  minor part; adding infectious mosquitoes made no difference.
+- ode.py: `simulate_with_spinup()` (DEVIATION #5); climate.py: `Climate.repeat()`.
+- New: metrics.py (peak I_h, day of peak, new infections = ∫α_h E_h dt, attack rate per 1,000),
+  r0.py (next-generation-matrix R0(t)), sensitivity.py (γ_h × β_hv, separate output).
+- scenarios.py / optimize.py now use year 3; two heatmaps (peak I_h primary, attack rate
+  supplementary, log scale when values span ≥10×); new ward_R0.png; sensitivity figure in
+  results/figures/sensitivity/.
+- params.py: GAMMA_H 0.01 → 0.0035; new spin-up/metric/sensitivity constants.
+- Tests: `pytest` → 26 passed (6 new in tests/test_metrics.py).
+- Results (year 3), low / medium / high Ω: peak I_h 1.30 / 1.86 / 12.4 (days 0 / 0 / 301);
+  attack rate per 1,000: 0.0198 / 0.0491 / 1.21; max R0(t) 1.08 / 1.42 / 2.56;
+  days with R0 > 1: 15 / 65 / 113. Heatmaps: both metrics rise monotonically as D_d and M_i fall.
+  In the low and medium wards the peak is on day 0 (infection still declining from the year before).
+- Sensitivity: all 9 (γ_h, β_hv) combinations keep the ranking high Ω > medium > low;
+  magnitudes range from 5e-5 to 593 per 1,000.
+
 ### 2026-10-14 - First complete build
 - Added src/malaria_model/: params.py, climate.py, drainage.py, ode.py, scenarios.py,
   optimize.py, plotting.py; main.py; pyproject.toml (pytest path only); tests/ (3 files).
@@ -20,6 +40,19 @@ day 0) everywhere, so the heatmap is flat. Not tuned, awaiting decision (see Ope
   Diagnostic R0 (not in code): max 0.65 / 0.85 / 1.53; only the poor ward has R0 > 1 (75 days).
 
 ## Decisions
+- 2026-10-14 Spin-up: 3 years with repeating climate, report year 3 (also DEVIATIONS #5).
+  Reason: remove the dependence on the arbitrary day-0 seed.
+- 2026-10-14 γ_h changed 0.01 → 0.0035/day ("approx. Chitnis, Hyman & Cushing 2008 baseline;
+  NEEDS VERIFICATION"). Reason: the original value was unsourced. It was replaced with a
+  literature-anchored value after the first run, NOT to produce a target result. β_hv deliberately
+  left at 0.022.
+- 2026-10-14 Metrics: peak I_h (SPEC §6 note 8) stays primary, now on year 3. Attack rate per 1,000
+  (∫α_h E_h dt / N_h(day 0 of year 3) × 1000) is supplementary. Computed from daily output, so
+  no new ODE state.
+- 2026-10-14 R0(t) uses the next-generation matrix with the simulated N_v(t)/N_h(t), convention
+  R0 = √(K_hv·K_vh) (formula in src/malaria_model/r0.py).
+- 2026-10-14 Option (b), infectious mosquitoes in the initial conditions: rejected by the user
+  (no effect in the diagnostic run).
 - Initial conditions: N_h = 10,000, I_h = 10, others 0; A_v(0) = K_v(R(0), Ω),
   S_v(0) = θ_A·A_v(0)/μ_v(T(0)). Reason: seed an outbreak; avoid an artificial day-1 jump in vectors.
 - Λ_h = μ_h·N_h0 so the disease-free population is stable.
@@ -31,14 +64,16 @@ day 0) everywhere, so the heatmap is flat. Not tuned, awaiting decision (see Ope
 - Ward profiles (D_d, M_i): (0.8, 0.9) Ω=0.125; (0.5, 0.3) Ω=1.397; (0.1, 0.1) Ω=8.911.
 - States are not clipped to >= 0 (tests allow -1e-6 round-off; none observed).
 
+## Open questions for professor
+- β_hv = 0.022 is at the low end of quoted values (~0.01–0.5); which source and value should we use?
+- γ_h = 0.0035: verify against Chitnis et al. 2008 or another source.
+- Should treatment be modelled? Treated infections recover in weeks, not months; this
+  changes results hugely (see the sensitivity analysis).
+- Which heatmap metric is preferred: peak I_h (spec) or attack rate per 1,000?
+
 ## Open questions
-- Peak-I_h metric is degenerate (always the day-0 seed). Options for user/professor:
-  measure peak after a burn-in year, use max over the monsoon only, use cumulative
-  incidence, or review placeholder values (γ_h, β, K_0, eta) against literature. Not tuned.
-- Verify cited values: Mordecai 2013 (c_a, T_0, T_m), Chitnis et al. 2008 (β_hv, β_vh).
+- Verify cited values: Mordecai 2013 (c_a, T_0, T_m), Chitnis et al. 2008 (β_vh).
+- K_0, eta, μ_flush, R_flush, φ_v, θ_A, μ_base are still placeholders.
 
 ## Next step
-Decide how to handle the flat peak-I_h result (see Open questions), then source literature values.
-
-
-- [14th Oct, 2026] CONFIRMED: Ω affects larvae in two reinforcing ways, raising K_v via (1 + eta*Ω) and reducing flushing via division by (Ω + epsilon). This is intended. Do not treat as a bug.
+Professor review of the open questions above, then replace placeholders with literature values.

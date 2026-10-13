@@ -56,7 +56,8 @@ THETA_A: float = 0.1  # aquatic-to-adult maturation [1/day]; PLACEHOLDER - needs
 BETA_VH: float = 0.48  # human->vector transmission prob. per bite [-];
 #                        approx. Chitnis, Hyman & Cushing 2008 (Bull. Math. Biol.) - verify exact value
 BETA_HV: float = 0.022  # vector->human transmission prob. per bite [-];
-#                         approx. Chitnis, Hyman & Cushing 2008 baseline - verify exact value
+#                         approx. Chitnis, Hyman & Cushing 2008 baseline - verify exact value.
+#                         Low end of quoted values (~0.01-0.5): OPEN QUESTION FOR PROFESSOR.
 
 N_H0: float = 10_000.0  # initial human population of a ward [humans]; PLACEHOLDER - needs ward census
 MU_H: float = 1.0 / (60.0 * 365.0)  # human natural mortality [1/day]; PLACEHOLDER - needs literature value
@@ -65,8 +66,9 @@ LAMBDA_H: float = MU_H * N_H0  # human recruitment [humans/day]; derived so the
 #                                disease-free population stays at N_H0
 ALPHA_H: float = 1.0 / 12.0  # human incubation rate E_h->I_h [1/day]; PLACEHOLDER - needs literature value
 #                              (intrinsic incubation ~10-14 days)
-GAMMA_H: float = 0.01  # human recovery rate [1/day]; PLACEHOLDER - needs literature value
-#                        (untreated infections last months; Chitnis et al. use ~0.0035)
+GAMMA_H: float = 0.0035  # human recovery rate [1/day] (~285-day untreated infection);
+#                          approx. Chitnis, Hyman & Cushing 2008 baseline; NEEDS VERIFICATION.
+#                          Changed 2026-10-14 from unsourced 0.01, see PROGRESS.md Decisions.
 DELTA_H: float = 1e-4  # disease-induced human mortality [1/day]; PLACEHOLDER - needs literature value
 RHO: float = 1.0 / 365.0  # loss of immunity R_h->S_h [1/day]; PLACEHOLDER - needs literature value
 
@@ -119,3 +121,22 @@ GRID_RESOLUTION: int = 9  # number of points per axis (9 x 9 = 81 runs)
 ODE_HMAX: float = 1.0  # max solver step [day] so no rainy day is skipped
 ODE_RTOL: float = 1e-6  # relative tolerance for odeint
 ODE_ATOL: float = 1e-6  # absolute tolerance for odeint [individuals]
+
+# ---------------------------------------------------------------------------
+# Spin-up (approved 2026-10-14, DEVIATION #5)
+# ---------------------------------------------------------------------------
+N_YEARS_TOTAL: int = 3  # years simulated with the climate repeated each year
+#                         (years 1-2 = burn-in, discarded; year 3 is reported)
+
+# ---------------------------------------------------------------------------
+# Metrics and plotting
+# ---------------------------------------------------------------------------
+PER_POPULATION: float = 1000.0  # attack rate is reported per this many people
+R0_THRESHOLD: float = 1.0  # epidemic threshold drawn on the R0(t) figure [-]
+LOG_SCALE_RATIO: float = 10.0  # heatmaps use a log colour scale if max/min >= this
+
+# ---------------------------------------------------------------------------
+# Sensitivity analysis (SEPARATE from the main results)
+# ---------------------------------------------------------------------------
+SENS_GAMMA_H: list[float] = [0.0035, 0.005, 0.01]  # recovery rates tested [1/day]
+SENS_BETA_HV: list[float] = [0.022, 0.05, 0.1]  # vector->human probabilities tested [-]

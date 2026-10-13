@@ -38,3 +38,16 @@ Code markers: `# DEVIATION: ..., see DEVIATIONS.md #N`.
 - **Reason:** with the Martens coefficients the denominator is <= 0 below ~3.7 °C and above
   ~40 °C, giving infinite or negative mortality (SPEC §6 note 4). Not active for 24-32 °C.
 - **Approved by:** user
+
+## #5 - Spin-up (burn-in) before the reported 365 days
+- **Date:** 2026-10-14
+- **File / function:** src/malaria_model/ode.py `simulate_with_spinup()` (used by scenarios.py,
+  optimize.py, sensitivity.py)
+- **Spec says:** 365-day trajectories from the chosen initial conditions (SPEC §6 note 6).
+- **Code does:** simulates 3 years with the synthetic 365-day climate repeated
+  (params.N_YEARS_TOTAL = 3), discards years 1-2, and reports year 3 (re-indexed to days 0-364).
+  All metrics (peak I_h, attack rate, R0(t)) are computed on year 3 only. The equations are unchanged.
+- **Reason:** in the first run, peak I_h always equalled the arbitrary day-0 seed (I_h = 10),
+  so the result reflected the initial conditions, not the drainage. Spin-up removes most of that
+  dependence. `simulate()` (single year from day 0) is still available and used in tests.
+- **Approved by:** user
