@@ -8,6 +8,11 @@ Key result: peak-R0 threshold Ω* ≈ 0.04-0.08 (outside the grid), but local in
 above Ω ≈ 8.7, so only the poor ward (Ω 8.9) sustains transmission in either variant.
 
 ## Change log
+### 2026-10-14 - Documentation: docs/MODEL_REPORT.md (no code changes)
+- Wrote the supervisor-meeting report. Every number comes from a fresh `python main.py` run
+  (127 s, 42 tests passing) or from params.py, cross-checked against the output.
+- Not exported to PDF/DOCX: pandoc is not installed (nothing was installed).
+
 ### 2026-10-14 - Spec/extended variants, convergence spin-up, Ω analysis, calibration code
 - New: config.py (ModelConfig, variant switch), calibrate.py (K_0 only; built, not run),
   omega_analysis.py (R0 vs Ω, Ω*, persistence Ω, min M_i), parallel.py (process pool),
