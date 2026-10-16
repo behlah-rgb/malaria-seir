@@ -3,6 +3,3 @@ __pycache__/
 *.pyc
 .env
 .DS_Store
-results/figures/*.png
-CLAUDE.md
-MODEL_REPORT.md
