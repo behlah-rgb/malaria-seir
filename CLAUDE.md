@@ -62,3 +62,10 @@ Append new entries with the date. Do not restate equations; point to docs/SPEC.m
 
 ### Commits
 - Never commit unless I ask. When I do, write a short title plus 2-3 lines explaining why.
+
+## Report-writing rules
+- Report work lives only in docs/report/. Never edit src/, tests/ or params.
+- Never invent references, meetings, dates, names, feedback or results. Unknown means a
+  yellow-highlighted [placeholder], listed in docs/report/BUILD_NOTES.md.
+- Every number comes from docs/MODEL_REPORT.md or results/. Do not rerun main.py or pytest.
+- Never write any student's individual contribution or reflection.

@@ -3,3 +3,4 @@ __pycache__/
 *.pyc
 .env
 .DS_Store
+docs/report/inputs/team_info.md
