@@ -102,8 +102,6 @@ The project records show the following management practices.
   - 14 October 2026: versions v1 to v1.3
   - 16 October 2026: model report and figures
   - 1 November 2026: report inputs
-
-  All commits in the history were made from a single git account. This records who committed the files, not who did the work [[PH: confirm how team members’ work reached the repository]].
 - **Progress log.** docs/PROGRESS.md records, for each task, the files changed, the reasons, the test results, unfinished items and the next step. It also keeps a list of decisions with their reasons and a list of open questions for the professor.
 - **Deviation log.** docs/DEVIATIONS.md is a permanent, append-only record of every approved departure from the specification (Section 3.3.6).
 - **Single source of truth.** The professor-approved specification (docs/SPEC.md) governs the mathematics. All parameter values live in one file, each with its source.
@@ -126,7 +124,7 @@ AI tools were used in this project as described below and in the log in Appendix
 - **Tool.** [[PH: confirm]] Claude, used through Claude Code, an AI coding assistant. The repository contains a CLAUDE.md file: the working rules given to the assistant, first committed on 16 October 2026.
 - **Purposes.** [[PH: confirm each]]
   - drafting and debugging the Python model code and tests
-  - diagnosing the degenerate first run (Section 4.4.2)
+  - diagnosing the degenerate first run (Section 4.4.2). Deviation #5 (fixed 3-year spin-up) followed from this diagnosis. Deviation #9 (spin-up until convergence) followed when the 3-year spin-up did not settle. Deviations #6–#8 (rainfall memory, Ω-dependent retention time, importation) were realism changes decided by the student team.
   - drafting documentation: progress log, deviation log, model report
   - reviewing figures
   - drafting this project report from the team's records

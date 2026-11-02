@@ -1,0 +1,96 @@
+== Page setup
+[PASS] Section 1: A4, margins L 1.5" / T,B,R 1"
+[PASS] Section 2: A4, margins L 1.5" / T,B,R 1"
+[PASS] Section 3: A4, margins L 1.5" / T,B,R 1"
+== Fonts and styles
+[PASS] Document default font Times New Roman (incl. East Asian)
+[PASS] Normal: TNR 12 pt, line spacing 1.5
+[PASS] Heading 1: TNR 18 pt bold black, no theme fonts
+[PASS] Heading 2: TNR 14 pt bold black, no theme fonts
+[PASS] Heading 3: TNR 12 pt bold black, no theme fonts
+[PASS] Caption style: TNR 10 pt
+[PASS] No run-level fonts other than TNR (and Courier New for code) -- {'Courier New': 25}
+  Note: 4 code-listing paragraph(s) in Courier New 8 pt (Appendix III) -- needs mentor approval.
+== Sections, page numbers, header and footer
+[PASS] Three sections: cover+certificate / front matter / main body -- found 3
+[PASS] Cover unnumbered; front matter lower Roman from i; Chapter 1 onwards decimal from 1 -- [None, ('lowerRoman', '1'), ('decimal', '1')]
+[PASS] Cover/certificate: no header text, no page number
+[PASS] Header: title left, academic year right -- A Compartmental SEIR-Vector Model for Malaria Transmission D ...
+[PASS] Footer: PAGE field, right-aligned
+[PASS] Main body inherits header and footer
+== Fields
+[PASS] Table of contents field (TOC \o 1-3)
+[PASS] List of figures field (TOC \c Fig)
+[PASS] List of tables field (TOC \c Table)
+[PASS] Fields set to update when the document opens
+  SEQ Fig fields: 13; SEQ Table fields: 24
+== Captions, equations and chapter structure
+[PASS] Figure captions below figures (TNR 10) -- 13 captions, 0 misplaced
+[PASS] Table captions above tables (TNR 10) -- 24 captions, 0 misplaced
+[PASS] Equations rendered as images with numbers -- 16: (3.1), (3.2), (3.3), (3.4), (3.5), (3.6), (3.7), (3.8), (3.9), (3.10), (3.11), (3.12), (3.13), (3.14), (3.15), (3.16)
+[PASS] Six chapters present -- Chapter 1 Introduction; Chapter 2 Background Study; Chapter 3 Design and Development Process; Chapter 4 Implementation, Results and Analysis; Chapter 5 Individual Contribution, Teamwork and Reflection; Chapter 6 Conclusion and Future Scope
+[PASS] Each chapter heading is followed by an introduction paragraph (not a section heading)
+[PASS] Only one conclusion (Chapter 6) -- ['Chapter 6 Conclusion and Future Scope']
+[PASS] Appendices numbered I-VII in Roman capitals -- ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII']
+[PASS] Order of contents as in Table 2 of the guide
+== Content checks (chapter sources)
+[PASS] 01_introduction.md: introduction paragraph and closing summary lines
+[PASS] 02_background.md: introduction paragraph and closing summary lines
+[PASS] 03_design.md: introduction paragraph and closing summary lines
+[PASS] 04_results.md: introduction paragraph and closing summary lines
+[PASS] 05_contribution.md: introduction paragraph and closing summary lines
+[PASS] 06_conclusion.md: introduction paragraph and closing summary lines
+[PASS] Every numbered figure and table is referred to in the text -- unreferenced: []
+[PASS] Every listed reference is cited in the text, numbered in citation order -- 13 references; cited numbers [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+== Yellow-highlighted placeholders by chapter
+    27  Front matter
+     2  Abbreviations
+     6  Chapter 1 Introduction
+    12  Chapter 2 Background Study
+    62  Chapter 3 Design and Development Process
+    15  Chapter 4 Implementation, Results and Analysis
+    70  Chapter 5 Individual Contribution, Teamwork and Reflection
+     3  Chapter 6 Conclusion and Future Scope
+    22  References
+    21  Appendix I Summary of the IER and Evidence Register
+     6  Appendix II Model Specifications
+     3  Appendix IV Meeting Minutes, Peer Feedback and Mentor Feedback
+     2  Appendix V VIP Evidence
+     1  Appendix VI Publications, Certificates and IP
+    19  Appendix VII AI-Tool Use Disclosure Log
+     1  Page header
+   272  TOTAL
+== [verify] items (31)
+  - Chapter 3 Design and Development Process: [verify]
+  - Chapter 3 Design and Development Process: [verify source; no reference number assigned until the source is confirmed]
+  - Chapter 3 Design and Development Process: [verify]
+  - Chapter 3 Design and Development Process: [verify]
+  - Chapter 3 Design and Development Process: [verify the attribution, and the meaning of ph in Shah and Gupta]
+  - References: [verify month]
+  - References: [verify author-name format; recorded as “Mojeeb Al-Rahman El-Nor Osman”]
+  - References: [verify month]
+  - References: [verify month]
+  - References: [verify vol., no., pp., month]
+  - References: [verify month]
+  - References: [verify month]
+  - References: [verify full conference name, pp., month]
+  - References: [verify month]
+  - References: [verify issuing body]
+  - References: [verify initials]
+  - References: [verify title]
+  - References: [verify vol., no., pp., month]
+  - References: [verify initials]
+  - References: [verify title and source]
+  - References: [verify initials]
+  - References: [verify initials]
+  - References: [verify initials]
+  - References: [verify title]
+  - References: [verify vol., no., pp., month]
+  - Appendix II Model Specifications: [verify]
+  - Appendix II Model Specifications: [verify source]
+  - Appendix II Model Specifications: [verify]
+  - Appendix II Model Specifications: [verify]
+  - Appendix II Model Specifications: [verify]
+  - Appendix II Model Specifications: [verify]
+
+Summary: 0 check(s) failed.

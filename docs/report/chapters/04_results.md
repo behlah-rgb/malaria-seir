@@ -54,7 +54,7 @@ The model was developed in versions recorded in git: v1 to v1.3 on 14 October 20
 
 ### 4.2.1 Test plan
 
-Verification is by automated tests, written with pytest and run after every change. The suite has 42 tests in six files ([[REF:tests]]). The number of tests per file and the descriptions below were taken from the test function names in each file.
+Verification is by automated tests, written with pytest and run after every change. The suite has 42 tests in six files ([[REF:tests]]). The number of tests per file was confirmed by test collection (`pytest --collect-only`, which lists the tests without running them). The descriptions are taken from the test function names.
 
 [[TAB:tests|Automated test suite]]
 
@@ -137,13 +137,13 @@ Section 3.3.6 describes the process for departures from the specification. The p
 - **Key observation:** the poor ward's I_h rises after the monsoon and peaks around day 310, while the other two wards stay low and flat.
 - **What not to conclude:** that the seasonal timing matches any real city. The climate is synthetic.
 
-[[FIG:wardvec|ward_vectors.png|Adult mosquitoes N_v by ward (extended variant)]]
+[[FIG:wardvec|ward_vectors.png|Adult mosquitoes S_v + E_v + I_v by ward (absolute numbers, N_h = 10,000), with temperature and rainfall (extended variant)]]
 
-- **What it shows:** adult mosquito numbers follow the monsoon.
-- **Key observation:** the poor ward's peak is about 5 times the best ward's (3.77 vs 0.715 peak mosquitoes per human), which is the direct effect of Ω on the carrying capacity.
+- **What it shows:** absolute adult mosquito numbers through the year. They follow the monsoon.
+- **Key observation:** the poor ward's peak is about 5 times the best ward's (3.77 vs 0.715 peak mosquitoes per human; [[REF:wardext]]), which is the direct effect of Ω on the carrying capacity.
 - **What not to conclude:** real mosquito densities. They scale directly with the uncalibrated K_0.
 
-[[FIG:wardr0|ward_R0.png|Time-varying reproduction number R0(t) by ward, with the line R0 = 1 (extended variant)]]
+[[FIG:wardr0|ward_R0.png|Time-varying reproduction number R0(t) by ward, with the line R0 = 1, temperature and rainfall (extended variant)]]
 
 - **What it shows:** R0(t), computed from the next-generation matrix as R0 = √(K_hv·K_vh). K_hv is the number of humans infected per infectious mosquito, and K_vh the number of mosquitoes infected per infectious human.
 - **Key observation:** R0(t) exceeds 1 only during the monsoon. The peaks are 1.02 (best), 1.3 (medium) and 2.34 (poor), while the year-round means are all below 1 (0.364, 0.461 and 0.829).
@@ -159,9 +159,9 @@ Section 3.3.6 describes the process for departures from the specification. The p
 
 [[FIG:hmspecatt|heatmap_spec_attack_rate.png|Attack rate per 1,000 over D_d × M_i, spec variant]]
 
-[[FIG:hmextpeak|heatmap_extended_peak_Ih.png|Peak I_h over D_d × M_i, extended variant]]
+[[FIG:hmextpeak|heatmap_extended_peak_Ih.png|Peak I_h over D_d × M_i, extended variant (the solid line at top right marks the minimum M_i for Ω* = 0.0825)]]
 
-[[FIG:hmextatt|heatmap_extended_attack_rate.png|Attack rate per 1,000 over D_d × M_i, extended variant]]
+[[FIG:hmextatt|heatmap_extended_attack_rate.png|Attack rate per 1,000 over D_d × M_i, extended variant (the solid line at top right marks the minimum M_i for Ω* = 0.0825)]]
 
 - **What they show:** each of the 81 cells is one (D_d, M_i) combination, coloured by the outcome in the reported year. The colour scale is logarithmic because values span many orders of magnitude. In the spec variant the attack rate runs from 5.4×10⁻¹⁰ in the smallest cell (read from the figure) up to 1.8 per 1,000.
 - **Key observations:**
@@ -207,7 +207,7 @@ From Ω ≤ threshold, the minimum maintenance needed at each drainage density i
 
 [[REF:omegascatter]] plots the outcome of every grid cell against its value of Ω.
 
-[[FIG:omegascatter|omega_scatter.png|Outcome of all 81 grid cells plotted against Ω]]
+[[FIG:omegascatter|omega_scatter.png|Attack rate (left) and peak I_h (right) of all 81 grid cells against Ω for both variants; vertical lines mark Ω* of each variant]]
 
 - **What it shows:** all 81 cells fall on a single curve per variant when plotted against Ω.
 - **Why:** in the equations, D_d and M_i appear only inside Ω, in K_v and μ_A. Two wards with the same Ω therefore have identical simulations.
@@ -231,7 +231,7 @@ From Ω ≤ threshold, the minimum maintenance needed at each drainage density i
 
 [[REF:sens]] shows how the attack rate responds to the two most uncertain transmission parameters.
 
-[[FIG:sens|sensitivity_attack_rate.png|Sensitivity of the attack rate to the recovery rate γ_h and the vector-to-human transmission probability β_hv (extended variant)]]
+[[FIG:sens|sensitivity_attack_rate.png|Attack rate per 1,000 for three values each of the recovery rate γ_h and the vector-to-human transmission probability β_hv, by ward (extended variant; sensitivity analysis, not main results)]]
 
 **Recovery rate × transmission probability.** Each of γ_h ∈ {0.0035, 0.005, 0.01} per day and β_hv ∈ {0.022, 0.05, 0.1} was tested in all 9 combinations.
 

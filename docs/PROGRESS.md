@@ -8,6 +8,15 @@ Key result: peak-R0 threshold Ω* ≈ 0.04-0.08 (outside the grid), but local in
 above Ω ≈ 8.7, so only the poor ward (Ω 8.9) sustains transmission in either variant.
 
 ## Change log
+### 2026-11-01 - Design Experience project report draft (docs/report/ only; no code changes)
+- Files: docs/report/chapters/*.md (front matter, Ch 1-6, references, appendices), docs/report/build/
+  (build_report.py, equations.py, diagrams.py, verify_report.py), docs/report/figures/ (11 copied
+  result figures, 2 new diagrams, 16 equation images), docs/report/BUILD_NOTES.md.
+- Why: draft of the MPSTME Design Experience (VIP) report, build/Project_Report.docx, for the team to edit and sign.
+- Tests: not run (report task). `pytest --collect-only` confirmed 42 tests. verify_report.py: 36/36 format checks pass.
+- Unfinished: 272 highlighted placeholders (names, Ch 5 contributions/reflections, meetings, feedback,
+  dates, [verify] references); no visual check (LibreOffice not installed). See BUILD_NOTES.md.
+- Next: team fills placeholders, verifies Lit Matrix entries and references, refreshes fields in Word.
 ### 2026-10-14 - Documentation: docs/MODEL_REPORT.md (no code changes)
 - Wrote the supervisor-meeting report. Every number comes from a fresh `python main.py` run
   (127 s, 42 tests passing) or from params.py, cross-checked against the output.
@@ -71,6 +80,8 @@ above Ω ≈ 8.7, so only the poor ward (Ω 8.9) sustains transmission in either
   Diagnostic R0 (not in code): max 0.65 / 0.85 / 1.53; only the poor ward has R0 > 1 (75 days).
 
 ## Decisions
+- 2026-11-01 Report: Lit Matrix values for β_hv/γ_h cited to Shah & Gupta 2013 and Osman 2017; Chitnis 2008
+  kept as params.py attribution [verify]. Data Provenance Log does not exist and is reported as not yet created.
 - 2026-10-14 Two variants selected by params.MODEL_VARIANT (default "extended" for the ward figures);
   heatmaps, Ω analysis and comparison always run both.
 - 2026-10-14 Calibration: K_0 only, medium ward, extended variant, converged spin-up; target is TOTAL

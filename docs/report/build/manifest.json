@@ -1,0 +1,188 @@
+{
+  "figures": {
+    "workflow": {
+      "number": "3.1",
+      "caption": "System workflow of the simulation tool, from inputs to figures"
+    },
+    "compartments": {
+      "number": "3.2",
+      "caption": "Eight-compartment SEIR–vector model with climate and drainage entry points"
+    },
+    "wardinf": {
+      "number": "4.1",
+      "caption": "Infectious humans I_h by ward through the reported year, with temperature and rainfall (extended variant)"
+    },
+    "wardvec": {
+      "number": "4.2",
+      "caption": "Adult mosquitoes S_v + E_v + I_v by ward (absolute numbers, N_h = 10,000), with temperature and rainfall (extended variant)"
+    },
+    "wardr0": {
+      "number": "4.3",
+      "caption": "Time-varying reproduction number R0(t) by ward, with the line R0 = 1, temperature and rainfall (extended variant)"
+    },
+    "hmspecpeak": {
+      "number": "4.4",
+      "caption": "Peak I_h over drainage density D_d × maintenance M_i, spec variant (log colour scale; dashed lines are contours of equal Ω)"
+    },
+    "hmspecatt": {
+      "number": "4.5",
+      "caption": "Attack rate per 1,000 over D_d × M_i, spec variant"
+    },
+    "hmextpeak": {
+      "number": "4.6",
+      "caption": "Peak I_h over D_d × M_i, extended variant (the solid line at top right marks the minimum M_i for Ω* = 0.0825)"
+    },
+    "hmextatt": {
+      "number": "4.7",
+      "caption": "Attack rate per 1,000 over D_d × M_i, extended variant (the solid line at top right marks the minimum M_i for Ω* = 0.0825)"
+    },
+    "r0omega": {
+      "number": "4.8",
+      "caption": "Peak and mean R0(t) against Ω for both variants, with Ω* (shaded safe zone) and the persistence thresholds marked"
+    },
+    "omegascatter": {
+      "number": "4.9",
+      "caption": "Attack rate (left) and peak I_h (right) of all 81 grid cells against Ω for both variants; vertical lines mark Ω* of each variant"
+    },
+    "variants": {
+      "number": "4.10",
+      "caption": "Spec vs extended variant by ward: I_h on a log scale (top) and mosquitoes per human (bottom)"
+    },
+    "sens": {
+      "number": "4.11",
+      "caption": "Attack rate per 1,000 for three values each of the recovery rate γ_h and the vector-to-human transmission probability β_hv, by ward (extended variant; sensitivity analysis, not main results)"
+    }
+  },
+  "tables": {
+    "litcompare": {
+      "number": "2.1",
+      "caption": "Comparison of the eight papers logged in the Literature Matrix"
+    },
+    "dataid": {
+      "number": "2.2",
+      "caption": "Summary of the data identification findings"
+    },
+    "reqs": {
+      "number": "3.1",
+      "caption": "Requirements for the model and software"
+    },
+    "dmatrix": {
+      "number": "3.2",
+      "caption": "Decision matrix for the model structure (scores 1–5; weights and scores to be confirmed by the team)"
+    },
+    "decisions": {
+      "number": "3.3",
+      "caption": "Further design decisions recorded during development"
+    },
+    "wards": {
+      "number": "3.4",
+      "caption": "Illustrative ward profiles and their Clogging Index"
+    },
+    "deviations": {
+      "number": "3.5",
+      "caption": "Logged deviations from the approved specification"
+    },
+    "milestones": {
+      "number": "3.6",
+      "caption": "Project milestones"
+    },
+    "modules": {
+      "number": "4.1",
+      "caption": "Module map of the simulation package"
+    },
+    "tests": {
+      "number": "4.2",
+      "caption": "Automated test suite"
+    },
+    "wardspec": {
+      "number": "4.3",
+      "caption": "Per-ward summary, spec variant (final reported year; uncalibrated K_0 = 500; placeholder parameters)"
+    },
+    "wardext": {
+      "number": "4.4",
+      "caption": "Per-ward summary, extended variant (final reported year; uncalibrated K_0 = 500; placeholder parameters; 1 imported infection per 1,000 per year)"
+    },
+    "thresholds": {
+      "number": "4.5",
+      "caption": "Threshold values of the Clogging Index Ω"
+    },
+    "minmi": {
+      "number": "4.6",
+      "caption": "Minimum maintenance M_i needed at each drainage density D_d"
+    },
+    "importsens": {
+      "number": "4.7",
+      "caption": "Attack rate per 1,000 for different importation rates, extended variant: total (local)"
+    },
+    "roles": {
+      "number": "5.1",
+      "caption": "Team structure and roles"
+    },
+    "contribmatrix": {
+      "number": "5.2",
+      "caption": "Contribution matrix (work package × student; Evidence IDs from the IER)"
+    },
+    "ier": {
+      "number": "I.1",
+      "caption": "Evidence Register summary"
+    },
+    "params": {
+      "number": "II.1",
+      "caption": "Model parameters, values and sources"
+    },
+    "funcmap": {
+      "number": "II.2",
+      "caption": "Location of the deviations in the code"
+    },
+    "climstats": {
+      "number": "III.1",
+      "caption": "Statistics of the synthetic climate (not real weather data)"
+    },
+    "wardderived": {
+      "number": "III.2",
+      "caption": "Derived drainage quantities for the three illustrative wards"
+    },
+    "litsummary": {
+      "number": "V.1",
+      "caption": "Literature Matrix: status and relevance of the logged papers"
+    },
+    "ailog": {
+      "number": "VII.1",
+      "caption": "AI-tool use log"
+    }
+  },
+  "equations": {
+    "omega": "3.1",
+    "kv": "3.2",
+    "mua": "3.3",
+    "biting": "3.4",
+    "gammam": "3.5",
+    "muv": "3.6",
+    "nh": "3.7",
+    "nv": "3.8",
+    "dAv": "3.9",
+    "dSv": "3.10",
+    "dEv": "3.11",
+    "dIv": "3.12",
+    "dSh": "3.13",
+    "dEh": "3.14",
+    "dIh": "3.15",
+    "dRh": "3.16"
+  },
+  "references": {
+    "osman2017": 1,
+    "shah2013": 2,
+    "paaijmans2012": 3,
+    "waite2019": 4,
+    "madito2026": 5,
+    "santosvega2016": 6,
+    "turner2015": 7,
+    "padder2025": 8,
+    "cckp": 9,
+    "census": 10,
+    "mordecai2013": 11,
+    "martens1997": 12,
+    "chitnis2008": 13
+  },
+  "placeholders_written": 272
+}
